@@ -4,13 +4,13 @@ from os import path
 
 # local and remote paths
 env.local_root_dir = path.join(path.dirname(__file__), "..")
-env.server_root_dir = 'example/path'
+env.server_root_dir = '/home/magnet/nosotrosusamos'
 
 # server domain used by nginx
-env.server_domain = 'example.com'
+env.server_domain = 'nosotrosusamos.com'
 
 # git repositories
-env.server_git_url = 'example/url.git'
+env.server_git_url = 'git@github.com:thagat/nosotrosusamos.git'
 
 
 class Config(ArtichokeConfig):
@@ -23,11 +23,11 @@ class Config(ArtichokeConfig):
 
 
 @task
-def set(address='cl', user='magnet', branch='master', django_port='8000'):
+def set(address='com', user='magnet', branch='master', django_port='8000'):
     """ Address, user, branch and django port setter with shortcuts. """
     # host
-    if address == 'cl':
-        env.hosts = ['example.com']
+    if address == 'com':
+        env.hosts = ['198.199.92.110']
     else:
         # TODO Validate input
         env.hosts = [address]
