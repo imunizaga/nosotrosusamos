@@ -3,9 +3,14 @@
 INSTALL_APTITUDE=true
 INSTALL_PIP=true
 INSTALL_HEROKU=false
+OSX=false
 while getopts “ahp” OPTION
 do
     case $OPTION in
+        m) 
+             echo "install on OSX"
+             OSX=true
+             ;;
         a)
              echo "only install aptitude"
              INSTALL_APTITUDE=true
@@ -30,6 +35,18 @@ do
              ;;
      esac
 done
+
+if $OSX; then
+    brew install python
+    pip install virtualenv
+    virtualenv .env --distribute
+    .env/bin/pip install --requirement install/requirements.pip
+    source .env/bin/activate
+    if [! -f ./config/local_setiings.py] ; then
+        cp config/local_settings.py.default config/local_settings.py
+    fi
+    exit
+fi
 
 if  $INSTALL_APTITUDE ; then
     # sudo install virtual env and other things with aptitude
