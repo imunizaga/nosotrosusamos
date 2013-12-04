@@ -16,5 +16,6 @@ block content
               | Esta es una página que nos muestra lo que ocupamos para trabajar y divertirnos. Es gratís y sin fines de lucro. ¿Te gustaría participar?
           .row
             {% include "includes/summary.jade" %}
-    {% include "includes/sidebar.jade" %}
+    #sidebar.col-xs-6.col-sm-3.sidebar-offcanvas(role='navigation')
+      {% include "includes/sidebar.jade" %}
 
