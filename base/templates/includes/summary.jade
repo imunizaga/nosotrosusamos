@@ -1,23 +1,8 @@
 - load staticfiles
 
 .col-6.col-sm-6.col-lg-4.summary
-  img(src="{% static 'img/Foto.png' %}")
-  h2 Diego Carrasco
+  img(src="{% static interview.picture.url %}")
+  h2 {{interview.title}}
+  p {{interview.summary|safe}}
   p
-    | Mi nombre es Diego Carrasco, y soy analista de datos. Todo lo que he hecho
-    | laboralmente ha estado vinculado a analizar datos de estudios y presentar 
-    | resultados. En el presente me encuentro realizando un PhD en Psicología,
-    |  en la 
-    a(href='http://www.choose.sussex.ac.uk/home.aspx') Universidad de Sussex
-    |, UK. Mis últimos intereses se han centrado en analizar datos en educación de |estudios.
-  p
-    a.btn.btn-default(href='#', role='button') View details »
-
-.col-6.col-sm-6.col-lg-4.summary
-  img(src="{% static 'img/Foto.png' %}")
-  h2 David Bustos
-  p.
-    | Mi nombre es David Bustos.
-  p
-    a.btn.btn-default(href='#', role='button') View details »
-
+    a.btn.btn-default(href='{% url "interview" interview.slug %}', role='button') View details »
