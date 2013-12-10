@@ -1,0 +1,16 @@
+extends base.jade
+
+- load staticfiles
+
+block stylesheets
+  link(href="{% static 'css/interview.css' %}", rel="stylesheet")
+
+block content
+  div.row
+    div.col-xs-12.col-sm-9
+      h1 {{interview.title}}
+      img(src="/uploads/{{interview.picture}}")
+      p {{interview.who_you_are}}
+      p {{interview.what_hardware}}
+      p {{interview.what_software}}
+      p {{interview.dream_setup}}
