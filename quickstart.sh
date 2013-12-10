@@ -4,7 +4,7 @@ INSTALL_APTITUDE=true
 INSTALL_PIP=true
 INSTALL_HEROKU=false
 OSX=false
-while getopts “ahp” OPTION
+while getopts “ahpm” OPTION
 do
     case $OPTION in
         m) 
