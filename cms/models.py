@@ -15,6 +15,8 @@ class Interview(BaseModel):
     slug = models.SlugField(
         unique=True, null=True, blank=True,
     )
+    summary = models.TextField(
+    )
     who_you_are = models.TextField(
     )
     what_hardware = models.TextField(
