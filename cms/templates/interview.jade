@@ -10,7 +10,11 @@ block content
     div.col-xs-12.col-sm-9
       h1 {{interview.title}}
       img(src="/uploads/{{interview.picture}}")
+      h2 ¿Quién eres tú?
       p {{interview.who_you_are|safe}}
+      h2 ¿Qué software ocupas?
       p {{interview.what_hardware|safe}}
+      h2 ¿Qué hardware ocupas?
       p {{interview.what_software|safe}}
+      h2 ¿Cuál es tu "setup" soñado?
       p {{interview.dream_setup|safe}}
