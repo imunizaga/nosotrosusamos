@@ -250,5 +250,41 @@
             "logentry"
         ]
     }
+},
+{
+    "pk": 22, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_interview", 
+        "name": "Can add interview", 
+        "content_type": [
+            "cms", 
+            "interview"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_interview", 
+        "name": "Can change interview", 
+        "content_type": [
+            "cms", 
+            "interview"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_interview", 
+        "name": "Can delete interview", 
+        "content_type": [
+            "cms", 
+            "interview"
+        ]
+    }
 }
 ]
