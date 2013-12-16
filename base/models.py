@@ -8,6 +8,8 @@ from base.image import generate_thumbnail
 from base.managers import BaseManager
 
 # django
+from django.conf import settings
+from django.contrib.sites.models import get_current_site
 from django.db import models
 from django.utils import timezone
 
@@ -90,3 +92,24 @@ class BaseModel(models.Model):
 
             for size in image_sizes:
                 generate_thumbnail(file_path, size)
+
+    def get_image_url(self, field_name, width=None, height=None, request=None):
+        picture = getattr(self, field_name)
+
+        if picture:
+            file_path = str(picture)
+            if width and height:
+                width = str(width)
+                height = str(height)
+                path = file_path.split('.')
+
+                #update the path
+                file_path = "{}-{}.{}".format(".".join(path[0:-1]),
+                                              "".join((width, "x", height)),
+                                              path[-1])
+
+            if request:
+                current_site = "http://%s" % get_current_site(request)
+            else:
+                current_site = ""
+            return "%s%s%s" % (current_site, settings.MEDIA_URL, file_path)
