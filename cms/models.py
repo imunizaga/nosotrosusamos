@@ -28,3 +28,12 @@ class Interview(BaseModel):
     picture = models.ImageField(
         upload_to=file_path, null=True, blank=True,
     )
+
+    #public methods
+    def save(self, *args, **kwargs):
+        """
+        Interview save method, overriden to set the picture size
+        """
+
+        super(Interview, self).save(*args, **kwargs)
+        self._process_image('picture')
