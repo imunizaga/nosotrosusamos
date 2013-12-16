@@ -38,4 +38,7 @@ class Interview(BaseModel):
         """
 
         super(Interview, self).save(*args, **kwargs)
-        self._process_image('picture')
+        try:
+            self._process_image('picture')
+        except:
+            pass

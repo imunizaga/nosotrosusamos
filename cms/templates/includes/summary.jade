@@ -4,6 +4,7 @@
 .col-6.col-sm-6.col-lg-4.summary
   img(src="{{interview|image_url:'picture,265,170'}}")
   h2 {{interview.title}}
-  p {{interview.summary|safe}}
-  p
-    a.btn.btn-default(href='{% url "interview" interview.slug %}', role='button') View details »
+  p.introtext 
+    |	{{interview.summary|safe}}
+  
+  a.btn.btn-default(href='{% url "interview" interview.slug %}', role='button') Ver Más »
