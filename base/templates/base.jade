@@ -52,40 +52,6 @@ html(lang="es")
                 li
                   a(href="{% url 'admin:index' %}") Administración
               {% endif %}
-            ul.nav.navbar-nav
-              li
-                a(href="#") Quienes Somos
-            ul.nav.navbar-nav
-              li
-                a(href="#") Comunidad
-
-            ul.nav.navbar-nav.navbar-right
-              {% if user.is_authenticated %}
-              li.dropdown
-                a.dropdown-toggle(href="#", data-toggle="dropdown")
-                  | Logged in as {{user.email}}
-                  b.caret
-
-                ul.dropdown-menu
-                  li
-                    a(href="{% url 'users.views.password_change' %}")
-                      | Modificar Contraseña
-                  li
-                    a(href="{% url 'users.views.logout' %}") Logout
-              {% else %}
-              li.dropdown
-                a.dropdown-toggle(href="#", data-toggle="dropdown")
-                  | Ingreso
-                  b.caret
-
-                ul.dropdown-menu
-                  li
-                    a(href="{% url 'login' %}")
-                      | Login
-                  li
-                    a(href="{% url 'users.views.password_reset' %}")
-                      | Recover password
-              {% endif %}
 
       div.container
         div.row
@@ -95,8 +61,19 @@ html(lang="es")
           {% endfor %}
           {% endif %}
       div.container
-        {% block content %}
-        {% endblock %}
+        div.row.row-offcanvas.row-offcanvas-left
+          div.col-xs-6.col-sm-3.sidebar-offcanvas(id="sidebar", role="navigation")
+            {% include "includes/sidebar.jade" %}
+
+          div.col-xs-12.col-sm-9
+            img(src='/static/img/header1.png')
+            {% block content %}
+            {% endblock %}
+            img(src='/static/img/header2.png')
+            .well.well-sm
+              p ¿Quieres participar? Escribenos a 
+                  a(href='mailto:contacto@nosotrosusamos.com')
+                    |contacto@nosotrosusamos.com
 
       //Le javascript
       //Placed at the end of the document so the pages load faster

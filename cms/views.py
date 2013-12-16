@@ -20,3 +20,13 @@ def interview(request, slug):
 
     return render_to_response(template, context,
                               context_instance=RequestContext(request))
+
+
+def about(request):
+    """ view that renders the about page"""
+
+    context = {
+    }
+
+    return render_to_response('about.jade', context,
+                              context_instance=RequestContext(request))
