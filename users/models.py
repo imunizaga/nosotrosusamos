@@ -78,8 +78,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    image_sizes = [(265, 170)]
-
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')

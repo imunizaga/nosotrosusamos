@@ -29,6 +29,8 @@ class Interview(BaseModel):
         upload_to=file_path, null=True, blank=True,
     )
 
+    image_sizes = [(265, 170)]
+
     #public methods
     def save(self, *args, **kwargs):
         """
