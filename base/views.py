@@ -10,7 +10,7 @@ def index(request):
     """ view that renders a default home"""
 
     context = {
-        "interviews": Interview.objects.all()
+        "interviews": Interview.objects.all().order_by("-created_at")
     }
 
     return render_to_response('index.jade', context,
