@@ -10,7 +10,10 @@ from cms.models import Interview
 
 
 def interview(request, slug):
-    interview = Interview.objects.get(slug=slug)
+    try:
+        interview = Interview.objects.get(slug=slug)
+    except Interview.DoesNotExist:
+        return template_view(request, template=slug)
 
     context = {
         "interview": interview,
@@ -22,11 +25,12 @@ def interview(request, slug):
                               context_instance=RequestContext(request))
 
 
-def about(request):
+def template_view(request, template):
     """ view that renders the about page"""
 
     context = {
+        "interviews": Interview.objects.all(),
     }
 
-    return render_to_response('about.jade', context,
+    return render_to_response('{}.jade'.format(template), context,
                               context_instance=RequestContext(request))
