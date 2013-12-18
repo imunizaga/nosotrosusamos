@@ -22,7 +22,8 @@ def index(request):
         count += 1
 
     context = {
-        "grouped_interviews": grouped_interviews
+        "grouped_interviews": grouped_interviews,
+        "interviews": interviews,
     }
 
     return render_to_response('index.jade', context,

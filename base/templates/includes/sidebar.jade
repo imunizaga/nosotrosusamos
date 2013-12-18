@@ -1,11 +1,9 @@
+- load interviews
+
 .list-group
+  {% get_recent_interviews %}
+  - for interview in recent_interviews
+    a.list-group-item(class="{{interview.slug}}", href='{% url "interview" interview.slug %}') 
+      | {{ interview.title }}
   a.list-group-item.about.active(href='/about') Acerca de nosotros
   a.list-group-item.siteswelike(href='/siteswelike') Sitios que nos gustan
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
-  a.list-group-item(href='#') Link
