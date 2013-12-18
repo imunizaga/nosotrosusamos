@@ -8,9 +8,21 @@ from cms.models import Interview
 
 def index(request):
     """ view that renders a default home"""
+    interviews = Interview.objects.all().order_by("-created_at")
+
+    grouped_interviews = []
+    count = 0
+    for interview in interviews:
+        if count % 3 == 0:
+            group = []
+            grouped_interviews.append(group)
+
+        group.append(interview)
+
+        count += 1
 
     context = {
-        "interviews": Interview.objects.all().order_by("-created_at")
+        "grouped_interviews": grouped_interviews
     }
 
     return render_to_response('index.jade', context,
