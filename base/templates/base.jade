@@ -39,11 +39,6 @@ html(lang="es")
       div.navbar.navbar-inverse.navbar-fixed-top
         div.container
           div.navbar-header
-            button.navbar-toggle(type="button", data-toggle="collapse",
-                                  data-target=".navbar-collapse")
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
             a.navbar-brand(href="{% url 'home' %}") Nosotros Usamos
           div.navbar-collapse.collapse
             - if user.is_authenticated 
@@ -66,6 +61,8 @@ html(lang="es")
             {% include "includes/sidebar.jade" %}
 
           div.col-xs-12.col-sm-9
+            p.pull-left.visible-xs
+              button.btn.btn-primary.btn-xs.absolute(type='button', data-toggle='offcanvas') Mostrar/Esconder Menú
             img.layout-img(src='/static/img/header1.png')
             {% block content %}
             {% endblock %}

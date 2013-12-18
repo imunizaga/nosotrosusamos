@@ -60,6 +60,10 @@ footer .copyright {
     right: -50%; /* 6 columns */
   }
 
+  .sidebar-offcanvas img{
+      width: 100%;
+  }
+
   .row-offcanvas-left
   .sidebar-offcanvas {
     left: -50%; /* 6 columns */
@@ -95,3 +99,4 @@ footer .copyright {
 .inline{ display: inline; }
 .block{ display: block; }
 .none{ display: none; }
+.absolute{ position: absolute }

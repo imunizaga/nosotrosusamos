@@ -10,5 +10,8 @@ $(document).ready(function () {
 
     $('a.list-group-item').removeClass('active');
 
-    $('a.list-group-item.' + location.pathname.replace(/\//g, '')).addClass('active');
+    var slug = location.pathname.replace(/\//g, '');
+    if (slug !== "") {
+        $('a.list-group-item.' + slug).addClass('active');
+    }
 });

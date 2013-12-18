@@ -7,14 +7,12 @@ block stylesheets
   link(href="{% static 'css/offcanvas.css' %}", rel="stylesheet")
 
 block content
-  p.pull-left.visible-xs
-      button.btn.btn-primary.btn-xs(type='button', data-toggle='offcanvas') Toggle nav
-    .jumbotron
-      h2 Nosotros Usamos
-      p
-        | Te contamos que ocupamos para trabajar y divertirnos. 
-    - for interviews in grouped_interviews
-      .row
-        {% for interview in interviews %}
-        {% include "includes/summary.jade" %}
-        {% endfor %}
+  .jumbotron
+    h2 Nosotros Usamos
+    p
+      | Te contamos que ocupamos para trabajar y divertirnos. 
+  - for interviews in grouped_interviews
+    .row
+      {% for interview in interviews %}
+      {% include "includes/summary.jade" %}
+      {% endfor %}
