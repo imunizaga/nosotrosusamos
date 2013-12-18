@@ -23,8 +23,8 @@ msgid "Nosotros Usamos site admin"
 msgstr "Sitio de administración de Nosotros Usamos"
 
 #: templates/admin/base_site.html:8
-msgid "administration"
-msgstr "administración"
+msgid "Administration"
+msgstr "Administración"
 
 #: templates/admin/login.html:41
 msgid "Login"
