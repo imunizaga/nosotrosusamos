@@ -5,7 +5,7 @@
 .col-6.col-sm-6.col-lg-4.summary
   h2.visible-xs {{interview.title}}
   a(href='{% url "interview" interview.slug %}')
-    img(src="{{interview|image_url:'picture,265,170'}}")
+    img(src="{{interview|image_url:'picture,530,340'}}")
   h2.hidden-xs {{interview.title}}
   div.introtext
     | {{interview.summary|markdown:"safe"}}
