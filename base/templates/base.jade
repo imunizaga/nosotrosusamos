@@ -16,7 +16,7 @@ html(lang="es")
     link(href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}", rel="stylesheet")
     link(href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}", rel="stylesheet")
     link(href="{% static 'bower_components/bootstrap-datepicker/css/datepicker.css' %}", rel="stylesheet")
-    link(href="{% static 'bower_components/chosen/chosen.css' %}", rel="stylesheet")
+    link(href="{% static 'bower_components/select2/select2.css' %}", rel="stylesheet")
     link(href="{% static 'css/bootstrap_custom.css' %}", rel="stylesheet")
     link(href="{% static 'css/site.css' %}", rel="stylesheet")
     link(href="{% static 'css/detail.css' %}", rel="stylesheet")
@@ -66,10 +66,10 @@ html(lang="es")
             {% include "includes/sidebar.jade" %}
 
           div.col-xs-12.col-sm-9
-            img(src='/static/img/header1.png')
+            img.layout-img(src='/static/img/header1.png')
             {% block content %}
             {% endblock %}
-            img(src='/static/img/header2.png')
+            img.layout-img(src='/static/img/header2.png')
             .well.well-sm
               p ¿Quieres participar? Escribenos a 
                   a(href='mailto:contacto@nosotrosusamos.com')
@@ -90,7 +90,8 @@ html(lang="es")
       script(src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}")
       script(src="{% static 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js' %}")
       script(src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js' %}")
-      script(src="{% static 'bower_components/chosen/chosen.jquery.js' %}")
+      script(src="{% static 'bower_components/select2/select2.min.js' %}")
+      script(src="{% static 'bower_components/select2/select2_locale_es.js' %}")
       script(src="{% static 'js/site.js' %}")
       script(src="{% static 'js/form.js' %}")
       {% endcompress %}

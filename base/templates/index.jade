@@ -13,7 +13,8 @@ block content
       h2 Nosotros Usamos
       p
         | Te contamos que ocupamos para trabajar y divertirnos. 
-    .row
-      {% for interview in interviews %}
-      {% include "includes/summary.jade" %}
-      {% endfor %}
+    - for interviews in grouped_interviews
+      .row
+        {% for interview in interviews %}
+        {% include "includes/summary.jade" %}
+        {% endfor %}
