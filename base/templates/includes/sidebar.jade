@@ -3,7 +3,6 @@
 img(src='/static/img/logo-web.png')
 .list-group
   a.list-group-item.about.active(href='/about') Acerca de nosotros
-  a.list-group-item.siteswelike(href='/siteswelike') Sitios que nos gustan
   {% get_recent_interviews %}
   - for interview in recent_interviews
     a.list-group-item(class="{{interview.slug}}", href='{% url "interview" interview.slug %}') 
