@@ -32,6 +32,11 @@ html(lang="es")
     {% compress css %}
     block stylesheets
     {% endcompress %}
+    link(rel='apple-touch-icon', href='/static/img/60.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/static/img/76.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/static/img/120.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/static/img/152.png')
+
 
   body(class='{{body_class|default:""}}')
     div
