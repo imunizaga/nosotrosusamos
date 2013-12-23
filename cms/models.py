@@ -48,9 +48,9 @@ class Interview(BaseModel):
 
     def parse_tags(self, commit=False):
         def tag_replace(match):
-            contents = match.group(1)
+            title = match.group(1)
 
-            tag = Tag.objects.get(title=contents)
+            tag = Tag.objects.get(title__iexact=title)
             if commit:
                 self.tags.add(tag)
 
@@ -59,10 +59,37 @@ class Interview(BaseModel):
         if commit:
             self.tags.remove()
 
-        search = '\[(\w+)!!!\]'
+        search = '\[([\w\s]+)!!!\]'
 
         self.summary = re.sub(search, tag_replace, self.summary)
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
+        self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
+        self.what_software = re.sub(search, tag_replace, self.what_software)
+        self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
+
+    def first_parse_tags(self):
+        def tag_replace(match):
+            title = match.group(1)
+            link = match.group(2)
+
+            try:
+                tag = Tag.objects.get(title__iexact=title)
+            except:
+                tag = Tag.objects.create(
+                    title=title,
+                    link=link
+                )
+            self.tags.add(tag)
+
+            return '[{}!!!]'.format(tag.title)
+
+        self.tags.remove()
+
+        search = '\[([\w\s]+)\]\(([:\w\./]+)\)'
+
+        self.summary = re.sub(search, tag_replace, self.summary)
+        self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
+        print self.who_you_are
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
         self.what_software = re.sub(search, tag_replace, self.what_software)
         self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
@@ -72,6 +99,8 @@ class Interview(BaseModel):
         """
         Interview save method, overriden to set the picture size
         """
+
+        self.first_parse_tags()
 
         super(Interview, self).save(*args, **kwargs)
         try:
