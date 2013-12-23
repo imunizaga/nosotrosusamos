@@ -5,7 +5,7 @@ from django.contrib import admin
 
 
 class InterviewAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'link']
+    list_display = ['title', 'slug', 'link', 'active']
 
     def link(self, obj):
         url = "/%s" % obj.slug
