@@ -87,10 +87,13 @@ class Category(BaseModel):
         max_length=255,
     )
 
+    def __unicode__(self):
+        return self.title
+
 
 class Tag(BaseModel):
-    category = models.ForeignKey(
-        Category,
+    categories = models.ManyToManyField(
+        Category, related_name='tags',
     )
     title = models.CharField(
         max_length=255,

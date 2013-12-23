@@ -19,7 +19,8 @@ class InterviewAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['title', 'link', 'category']
+    list_display = ['title', 'link']
+    filter_horizontal = ['categories']
 
 
 class CategoryAdmin(admin.ModelAdmin):
