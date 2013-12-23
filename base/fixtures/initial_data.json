@@ -286,5 +286,41 @@
             "interview"
         ]
     }
+},
+{
+    "pk": 25, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_tag", 
+        "name": "Can add tag", 
+        "content_type": [
+            "cms", 
+            "tag"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_tag", 
+        "name": "Can change tag", 
+        "content_type": [
+            "cms", 
+            "tag"
+        ]
+    }
+},
+{
+    "pk": 27, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_tag", 
+        "name": "Can delete tag", 
+        "content_type": [
+            "cms", 
+            "tag"
+        ]
+    }
 }
 ]

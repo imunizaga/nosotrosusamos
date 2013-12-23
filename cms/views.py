@@ -15,6 +15,8 @@ def interview(request, slug):
     except Interview.DoesNotExist:
         return template_view(request, template=slug)
 
+    interview.parse_tags()
+
     context = {
         "interview": interview,
     }
