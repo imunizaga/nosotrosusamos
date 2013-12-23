@@ -61,7 +61,6 @@ class Interview(BaseModel):
 
         search = '\[([\w\s]+)!!!\]'
 
-        self.summary = re.sub(search, tag_replace, self.summary)
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
         self.what_software = re.sub(search, tag_replace, self.what_software)
@@ -87,9 +86,7 @@ class Interview(BaseModel):
 
         search = '\[([\w\s]+)\]\(([:\w\./]+)\)'
 
-        self.summary = re.sub(search, tag_replace, self.summary)
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
-        print self.who_you_are
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
         self.what_software = re.sub(search, tag_replace, self.what_software)
         self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
