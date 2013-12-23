@@ -8,7 +8,7 @@ from cms.models import Interview
 
 def index(request):
     """ view that renders a default home"""
-    interviews = Interview.objects.all().order_by("-created_at")
+    interviews = Interview.objects.filter(active=True).order_by("-created_at")
 
     grouped_interviews = []
     count = 0

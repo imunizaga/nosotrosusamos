@@ -1,3 +1,4 @@
+from cms.models import Category
 from cms.models import Interview
 from cms.models import Tag
 from django.contrib import admin
@@ -18,7 +19,12 @@ class InterviewAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['title', 'link']
+    list_display = ['title', 'link', 'category']
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['title']
 
 admin.site.register(Interview, InterviewAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)

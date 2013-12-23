@@ -11,6 +11,9 @@ class Interview(BaseModel):
     def file_path(self, name):
         """ file path for the file obj """
         return "%s" % name
+    tags = models.ManyToManyField(
+        'Tag', related_name='interviews', editable=False,
+    )
 
     title = models.CharField(
         max_length=255,
@@ -31,8 +34,8 @@ class Interview(BaseModel):
     picture = models.ImageField(
         upload_to=file_path, null=True, blank=True,
     )
-    tags = models.ManyToManyField(
-        'Tag', related_name='interviews', editable=False,
+    active = models.BooleanField(
+        default=False,
     )
 
     image_sizes = [
@@ -86,7 +89,7 @@ class Category(BaseModel):
 
 
 class Tag(BaseModel):
-    cateogry = models.ForeignKey(
+    category = models.ForeignKey(
         Category,
     )
     title = models.CharField(
