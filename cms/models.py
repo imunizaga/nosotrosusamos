@@ -79,7 +79,16 @@ class Interview(BaseModel):
         self.parse_tags(commit=True)
 
 
+class Category(BaseModel):
+    title = models.CharField(
+        max_length=255,
+    )
+
+
 class Tag(BaseModel):
+    cateogry = models.ForeignKey(
+        Category,
+    )
     title = models.CharField(
         max_length=255,
     )
