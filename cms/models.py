@@ -70,11 +70,35 @@ class Interview(BaseModel):
         self.what_software = re.sub(search, tag_replace, self.what_software)
         self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
 
+    def remove_uncategorized_tags(self):
+        def tag_replace(match):
+            title = match.group(1)
+
+            path = match.group(2)
+
+            if not path:
+                path = ""
+
+            tag = Tag.objects.get(title__iexact=title)
+            if tag.categories.count():
+                return '[{}!!!{}]'.format(tag.title, path)
+
+            return '[{}]({})'.format(tag.title, tag.link)
+
+        search = '\[([\w\s]+)!!!([\w/]+)?\]'
+
+        self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
+        self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
+        self.what_software = re.sub(search, tag_replace, self.what_software)
+        self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
+
     #public methods
     def save(self, *args, **kwargs):
         """
         Interview save method, overriden to set the picture size
         """
+
+        self.remove_uncategorized_tags()
 
         super(Interview, self).save(*args, **kwargs)
         try:

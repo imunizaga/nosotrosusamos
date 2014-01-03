@@ -15,9 +15,15 @@ class InterviewTests(BaseTestCase):
         Tests tthat the parse_tags method creates the expected tags
         """
 
+        category = self.create_category()
+
         tag1 = self.create_tag()
         tag2 = self.create_tag()
         tag3 = self.create_tag()
+
+        tag1.categories.add(category)
+        tag2.categories.add(category)
+        tag3.categories.add(category)
 
         path2 = '/hello'
         path3 = '/hello/123'

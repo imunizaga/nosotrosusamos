@@ -12,6 +12,7 @@ from django.test import TestCase
 from users.models import User
 from cms.models import Interview
 from cms.models import Tag
+from cms.models import Category
 
 # standard library
 import random
@@ -25,13 +26,20 @@ class BaseTestCase(TestCase):
 
         self.user = self.create_user()
 
+    def create_category(self, **kwargs):
+        return Category.objects.create(
+            title=self.random_string(),
+            **kwargs
+        )
+
     def create_interview(self, **kwargs):
         return Interview.objects.create(**kwargs)
 
-    def create_tag(self):
+    def create_tag(self, **kwargs):
         return Tag.objects.create(
             title=self.random_string(),
-            link="http://{}.com".format(self.random_string())
+            link="http://{}.com".format(self.random_string()),
+            **kwargs
         )
 
     def create_user(self, password=None, **kwargs):
