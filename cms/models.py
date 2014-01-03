@@ -50,6 +50,7 @@ class Interview(BaseModel):
         def tag_replace(match):
             title = match.group(1)
             path = match.group(2)
+            link = match.group(3)
 
             if not path:
                 path = ""
@@ -58,17 +59,48 @@ class Interview(BaseModel):
             if commit:
                 self.tags.add(tag)
 
-            return '[{}{}]({})'.format(tag.title, tag.link, path)
+            if not link:
+                link = tag.link
+            else:
+                link = link[1:-1]
+
+            return '[{}]({}{})'.format(tag.title, link, path)
 
         if commit:
             self.tags.remove()
 
-        search = '\[([\w\s]+)!!!([\w/]+)?\]'
+        search = '\[([\w\s]+)!!!([\w/]+)?\](\([\w/:\.]+\))?'
 
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
         self.what_software = re.sub(search, tag_replace, self.what_software)
         self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
+
+    def search_tags(self):
+        def tag_replace(match):
+            title = match.group(1)
+            link = match.group(2)
+
+            try:
+                tag = Tag.objects.get(
+                    title__iexact=title,
+                    link=link,
+                )
+            except:
+                return '[{}]({})'.format(title, link)
+
+            return '[{}!!!]'.format(tag.title)
+
+        self.tags.remove()
+
+        search = '\[([\w\s]+)\]\(([:\w\./]+)\)'
+
+        self.update(who_you_are=re.sub(search, tag_replace, self.who_you_are))
+        self.update(what_hardware=re.sub(search, tag_replace,
+                                         self.what_hardware))
+        self.update(what_software=re.sub(search, tag_replace,
+                                         self.what_software))
+        self.update(dream_setup=re.sub(search, tag_replace, self.dream_setup))
 
     #public methods
     def save(self, *args, **kwargs):
@@ -76,9 +108,10 @@ class Interview(BaseModel):
         Interview save method, overriden to set the picture size
         """
 
-        self.remove_uncategorized_tags()
-
         super(Interview, self).save(*args, **kwargs)
+
+        self.search_tags()
+
         try:
             self._process_image('picture')
         except:
