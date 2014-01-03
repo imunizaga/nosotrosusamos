@@ -19,8 +19,11 @@ class InterviewAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['title', 'link']
+    list_display = ['title', 'link', 'categories_list']
     filter_horizontal = ['categories']
+
+    def categories_list(self, obj):
+        return ", ".join(obj.categories.all().values_list('title', flat=True))
 
 
 class CategoryAdmin(admin.ModelAdmin):
