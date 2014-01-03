@@ -49,42 +49,21 @@ class Interview(BaseModel):
     def parse_tags(self, commit=False):
         def tag_replace(match):
             title = match.group(1)
+            path = match.group(2)
+
+            if not path:
+                path = ""
 
             tag = Tag.objects.get(title__iexact=title)
             if commit:
                 self.tags.add(tag)
 
-            return '[{}]({})'.format(tag.title, tag.link)
+            return '[{}{}]({})'.format(tag.title, tag.link, path)
 
         if commit:
             self.tags.remove()
 
-        search = '\[([\w\s]+)!!!\]'
-
-        self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
-        self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
-        self.what_software = re.sub(search, tag_replace, self.what_software)
-        self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
-
-    def first_parse_tags(self):
-        def tag_replace(match):
-            title = match.group(1)
-            link = match.group(2)
-
-            try:
-                tag = Tag.objects.get(title__iexact=title)
-            except:
-                tag = Tag.objects.create(
-                    title=title,
-                    link=link
-                )
-            self.tags.add(tag)
-
-            return '[{}!!!]'.format(tag.title)
-
-        self.tags.remove()
-
-        search = '\[([\w\s]+)\]\(([:\w\./]+)\)'
+        search = '\[([\w\s]+)!!!([\w/]+)?\]'
 
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
@@ -96,8 +75,6 @@ class Interview(BaseModel):
         """
         Interview save method, overriden to set the picture size
         """
-
-        self.first_parse_tags()
 
         super(Interview, self).save(*args, **kwargs)
         try:
