@@ -91,6 +91,23 @@ class Interview(BaseModel):
         self.what_software = re.sub(search, tag_replace, self.what_software)
         self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
 
+    def remove_uncategorized_tags(self):
+        def tag_replace(match):
+            title = match.group(1)
+
+            tag = Tag.objects.get(title__iexact=title)
+            if tag.categories.count():
+                return '[{}!!!]'.format(tag.title)
+
+            return '[{}]({})'.format(tag.title, tag.link)
+
+        search = '\[([\w\s]+)!!!\]'
+
+        self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
+        self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
+        self.what_software = re.sub(search, tag_replace, self.what_software)
+        self.dream_setup = re.sub(search, tag_replace, self.dream_setup)
+
     #public methods
     def save(self, *args, **kwargs):
         """
@@ -99,6 +116,7 @@ class Interview(BaseModel):
 
         self.first_parse_tags()
 
+        #self.remove_uncategorized_tags()
         super(Interview, self).save(*args, **kwargs)
         try:
             self._process_image('picture')
