@@ -11,6 +11,7 @@ urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('users.urls')),
+    url(r'^tags/$', 'cms.views.tags', name='tags'),
     url(r'^(?P<slug>\w+)/$', 'cms.views.interview', name='interview'),
     url(r'^$', 'base.views.index', name='home'),
 )

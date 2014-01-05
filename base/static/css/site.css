@@ -1,7 +1,3 @@
-.hide {
-    display: hidden;
-}
-
 body {
     padding-top: 70px;
     padding-bottom: 40px;
@@ -100,3 +96,8 @@ footer .copyright {
 .block{ display: block; }
 .none{ display: none; }
 .absolute{ position: absolute }
+
+.social {
+  margin-bottom: 25px;
+  margin-top: 55px;
+}

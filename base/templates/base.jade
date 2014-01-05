@@ -93,6 +93,8 @@ html(lang="es")
       {% endif %}
       block uncompressible_javascripts
 
+      block javascript_data
+
       {% compress js %}
       script(src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}")
       script(src="{% static 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js' %}")

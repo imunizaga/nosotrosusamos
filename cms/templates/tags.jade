@@ -1,0 +1,24 @@
+extends base.jade
+
+- load staticfiles
+
+block stylesheets
+  link(href="{% static 'css/tags.css' %}", rel="stylesheet")
+
+block uncompressible_javascripts
+  script(type="text/javascript", src="https://www.google.com/jsapi")
+
+block javascripts
+  script(type="text/javascript", src="{% static 'js/tags.js' %}")
+
+block javascript_data
+  script(type="text/javascript")
+    var tagData = {{json_tags|safe}}
+    var categoryData = {{json_categories|safe}}
+
+block content
+  div.row
+    div.col-xs-12.tags
+      h1 Categorías
+      div.charts
+      .social {% include "includes/social.jade" %}
