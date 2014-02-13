@@ -6,3 +6,9 @@
     margin: auto;
     display: block;
 }
+
+.interview footer{
+    color: #999;
+    margin-top: 20px;
+    text-align: right;
+}

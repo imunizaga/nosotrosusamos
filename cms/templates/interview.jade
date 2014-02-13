@@ -19,4 +19,7 @@ block content
       p {{interview.what_software|markdown:"safe"}}
       h2 ¿Cuál es tu "setup" soñado?
       p {{interview.dream_setup|markdown:"safe"}}
+
+      footer {{interview.created_at}}
+
       .social {% include "includes/social.jade" %}
