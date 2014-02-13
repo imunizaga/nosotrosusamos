@@ -69,7 +69,7 @@ class Interview(BaseModel):
         if commit:
             self.tags.remove()
 
-        search = '\[([\w\s]+)!!!([\w/]+)?\](\([\w/:\.]+\))?'
+        search = '\[([\w\s\/]+)!!!([\w/]+)?\](\([\w/:\.]+\))?'
 
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
@@ -93,7 +93,7 @@ class Interview(BaseModel):
 
         self.tags.remove()
 
-        search = '\[([\w\s]+)\]\(([:\w\./]+)\)'
+        search = '\[([\w\s\/]+)\]\(([:\w\./]+)\)'
 
         self.update(who_you_are=re.sub(search, tag_replace, self.who_you_are))
         self.update(what_hardware=re.sub(search, tag_replace,
