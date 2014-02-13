@@ -37,7 +37,7 @@ class BaseTestCase(TestCase):
 
     def create_tag(self, **kwargs):
         return Tag.objects.create(
-            title=self.random_string(),
+            title=self.random_string() + '-./',
             link="http://{}.com".format(self.random_string()),
             **kwargs
         )

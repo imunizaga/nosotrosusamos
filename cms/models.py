@@ -43,6 +43,8 @@ class Interview(BaseModel):
         (530, 340),
     ]
 
+    title_regex = '([\w\s\-\.\/]+)'
+
     class Meta:
         ordering = ['-created_at']
 
@@ -69,7 +71,7 @@ class Interview(BaseModel):
         if commit:
             self.tags.remove()
 
-        search = '\[([\w\s\/]+)!!!([\w/]+)?\](\([\w/:\.]+\))?'
+        search = '\[{}!!!([\w/]+)?\](\([\w/:\.]+\))?'.format(self.title_regex)
 
         self.who_you_are = re.sub(search, tag_replace, self.who_you_are)
         self.what_hardware = re.sub(search, tag_replace, self.what_hardware)
@@ -93,7 +95,7 @@ class Interview(BaseModel):
 
         self.tags.remove()
 
-        search = '\[([\w\s\/]+)\]\(([:\w\./]+)\)'
+        search = '\[{}\]\(([:\w\./]+)\)'.format(self.title_regex)
 
         self.update(who_you_are=re.sub(search, tag_replace, self.who_you_are))
         self.update(what_hardware=re.sub(search, tag_replace,
