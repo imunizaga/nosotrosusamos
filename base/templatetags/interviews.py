@@ -21,5 +21,6 @@ class MenuObject(template.Node):
         pass
 
     def render(self, context):
-        context['recent_interviews'] = Interview.objects.all()[:5]
+        context['recent_interviews'] = Interview.objects.filter(
+            active=True)[:5]
         return ''
