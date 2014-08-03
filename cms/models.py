@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 # models
 from base.models import BaseModel
@@ -48,7 +50,7 @@ class Interview(BaseModel):
     class Meta:
         ordering = ['-created_at']
 
-    def parse_tags(self, commit=False):
+    def parse_tags(self, commit=False, request=None):
         def tag_replace(match):
             title = match.group(1)
             path = match.group(2)
@@ -57,7 +59,15 @@ class Interview(BaseModel):
             if not path:
                 path = ""
 
-            tag = Tag.objects.get(title__iexact=title)
+            try:
+                tag = Tag.objects.get(title__iexact=title)
+            except:
+                if request and request.user.has_perm('admin'):
+                    messages.add_message(
+                        request, messages.ERROR,
+                        _('Tag "{}" does not Exist').format(title)
+                    )
+                return
             if commit:
                 self.tags.add(tag)
 
@@ -104,7 +114,7 @@ class Interview(BaseModel):
                                          self.what_software))
         self.update(dream_setup=re.sub(search, tag_replace, self.dream_setup))
 
-    #public methods
+    # public methods
     def save(self, *args, **kwargs):
         """
         Interview save method, overriden to set the picture size

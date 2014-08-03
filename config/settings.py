@@ -192,7 +192,6 @@ INSTALLED_APPS = (
     'users',
     'bootstrap_admin',
     'django.contrib.admin',
-    'django_tables2',
     'cms',
 )
 # Set the apps that are installed locally
