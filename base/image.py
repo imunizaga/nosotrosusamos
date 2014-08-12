@@ -28,5 +28,15 @@ def generate_thumbnail(file_path, size, bounds=None, force=False, img=None):
         if bounds:
             img = img.crop(bounds)
 
-        thumbnail = fit(img, size, Image.ANTIALIAS)
-        thumbnail.save(thumbnail_path)
+        if size[0] and size[1]:
+            thumbnail = fit(img, size, Image.ANTIALIAS)
+            thumbnail.save(thumbnail_path)
+        else:
+            x, y = size
+            if not size[0]:
+                x = img.size[0]
+            if not size[1]:
+                y = img.size[1]
+            size = (x, y)
+            img.thumbnail(size, Image.ANTIALIAS)
+            img.save(thumbnail_path)

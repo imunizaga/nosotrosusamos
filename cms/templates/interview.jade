@@ -2,15 +2,19 @@ extends base.jade
 
 - load staticfiles
 - load markup
+- load image
 
 block stylesheets
   link(href="{% static 'css/interview.css' %}", rel="stylesheet")
+
+block javascripts
+  script(src="{% static 'js/interview.js' %}")
 
 block content
   div.row
     div.col-xs-12.interview
       h1 {{interview.title}}
-      img(src="/uploads/{{interview.picture}}")
+      img.interviewee(src="/uploads/{{interview.picture}}")
       h2 ¿Quién eres tú?
       p {{interview.who_you_are|markdown:"safe"}}
       h2 ¿Qué hardware ocupas?
@@ -19,6 +23,25 @@ block content
       p {{interview.what_software|markdown:"safe"}}
       h2 ¿Cuál es tu "setup" soñado?
       p {{interview.dream_setup|markdown:"safe"}}
+
+      if interview.images.all.count
+        #myCarousel.carousel.slide(data-ride='carousel')
+          ol.carousel-indicators
+            for image in interview.images.all
+              li(data-target="#myCarousel", data-slide-to="{{forloop.counter0}}",
+                class="{%if forloop.first %}active{% endif %}")
+          .carousel-inner
+            for image in interview.images.all
+              .item(class="{%if forloop.first %}active{% endif %}")
+                img(src="{{image|image_url:'picture,0,250'}}", alt='')
+                .carousel-caption
+                  h1 {{image.caption_header}}
+                  p {{image.caption_body}}
+          a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+            span.glyphicon.glyphicon-chevron-left
+          a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+            span.glyphicon.glyphicon-chevron-right
+
 
       footer {{interview.created_at}}
 

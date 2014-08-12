@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.contrib.sites.models import get_current_site
 
 # models
 from base.models import BaseModel
@@ -154,3 +156,84 @@ class Tag(BaseModel):
 
     def __unicode__(self):
         return self.title
+
+
+class InterviewImage(BaseModel):
+    def folder_path(self):
+        return "interviews/%d/images/" % self.interview_id
+
+    def file_path(self, name):
+        """ file path for the file obj """
+        return u"{}{}".format(self.folder_path(), name)
+
+    image_sizes = (
+        (0, 250),  # detail carousel
+        (220, 220),  # index small
+        (940, 330),  # index carousel
+    )
+
+    # foreign keys
+    interview = models.ForeignKey(
+        Interview, related_name="images",
+        help_text=_("The interview of this image."),
+    )
+
+    interview = models.ForeignKey(
+        Interview, related_name="images",
+        help_text=_("The interview of this image."),
+    )
+    picture = models.ImageField(
+        upload_to=file_path,
+        null=True,
+        blank=True,
+        verbose_name=_("picture"),
+    )
+    caption_header = models.CharField(
+        max_length=100,
+    )
+    caption_body = models.CharField(
+        max_length=255,
+    )
+
+    # auto fields
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        help_text=_("The order in which this image appears"))
+
+    def __unicode__(self):
+        return u"%d-%d" % (self.interview_id, self.id)
+
+    def save(self, process_image=True, *args, **kwargs):
+        """ override the interview save method to transform the uploaded images
+        to jpg to reduce it's file size
+
+        """
+        super(InterviewImage, self).save(*args, **kwargs)
+        if process_image:
+            self._process_image('picture')
+
+    def get_image_url(self, field_name, width=None, height=None, request=None):
+        picture = getattr(self, field_name)
+
+        if picture:
+            file_path = str(picture)
+            if width and height:
+                width = str(width)
+                height = str(height)
+                path = file_path.split('.')
+
+                # update the path
+                file_path = "{}-{}.{}".format(".".join(path[0:-1]),
+                                              "".join((width, "x", height)),
+                                              path[-1])
+
+            if request:
+                current_site = "http://%s" % get_current_site(request)
+            else:
+                current_site = ""
+            return "%s%s%s" % (current_site, settings.MEDIA_URL, file_path)
+
+    class Meta:
+        verbose_name_plural = _('interview images')
+        verbose_name = _('interview image')
+        ordering = ['order']

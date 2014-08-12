@@ -1,11 +1,19 @@
 from cms.models import Category
 from cms.models import Interview
+from cms.models import InterviewImage
 from cms.models import Tag
 from django.contrib import admin
 
 
+class InterviewImageInline(admin.TabularInline):
+    model = InterviewImage
+    max_num = 6
+
+
 class InterviewAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'link', 'active']
+
+    inlines = [InterviewImageInline]
 
     def link(self, obj):
         url = "/%s" % obj.slug
